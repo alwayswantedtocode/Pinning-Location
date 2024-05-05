@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FormField from "../Inputs/FormField";
-import { MdSearch } from "react-icons/md";
+import { FiSearch } from "react-icons/fi";
 
 const Navbar = () => {
   const [input, setInputs] = useState({});
@@ -22,7 +22,7 @@ const Navbar = () => {
         </div>
         <div className="w-max h-max font-bold text-lg uppercase flex items-center justify-center rounded-[4px] border-2 border-[#ce5aff]">
           <div className="flex items-align justify-center p-[0.2rem]">
-            <MdSearch />
+            <FiSearch />
           </div>
           <FormField
             type="text"
