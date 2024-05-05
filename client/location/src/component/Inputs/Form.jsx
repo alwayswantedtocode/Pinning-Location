@@ -1,46 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import FormField from "./FormField";
-import axios from "../../Axios/axios";
+import useAddGetCustomer from "../../hooks/useAddGetCustomer";
 
 const Form = () => {
-  const [inputs, setInputs] = useState({});
-  const [notification, setNotification] = useState(false);
+  const { inputs, setInputs, notification, setNotification, handleSubmit } =
+    useAddGetCustomer();
 
-
+// handling input onchange and onchecked
   const handleChange = (name, value) => {
     setInputs({ ...inputs, [name]: value });
   };
   const handleRadioChange = (name, checked) => {
     setNotification({ ...notification, [name]: checked });
-  };
-
-  const object = {};
-
-  console.log(object);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post("/api/location/customers", {
-        Name: inputs.Name,
-        Email: inputs.Email,
-        Number: inputs.PhoneNumber,
-        Address: inputs.Address,
-        Notification: notification,
-      });
-      console.log(response.data);
-
-      setInputs({
-        Name: "",
-        Email: "",
-        PhoneNumber: "",
-        Address: "",
-        Notification: false,
-      });
-      window.location.reload();
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   return (

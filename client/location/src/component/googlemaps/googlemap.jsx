@@ -8,8 +8,8 @@ import {
   AdvancedMarker,
 } from "@vis.gl/react-google-maps";
 import axios from "../../Axios/axios";
-
-// import {Pin} from "@"
+import useAddGetCustomer from "../../hooks/useAddGetCustomer";
+import useHandleMapInfo from "../../hooks/useHandleMapInfo";
 
 const Googlemap = () => {
   const center = {
@@ -20,42 +20,24 @@ const Googlemap = () => {
     lat: 6.58724,
     lng: 3.37149,
   };
+  const { data, errMsg, fetchData } = useAddGetCustomer();
+  const {  handleIcons, closeinfowindowRef } =
+    useHandleMapInfo();
   const [locationInfo, setLocationInfo] = useState(false);
   const [customerInfo, setCustomerInfo] = useState(null);
   const [apiLoaded, setApiLoaded] = useState(false);
-  const [errMsg, setErrMsg] = useState(false);
+  // const [errMsg, setErrMsg] = useState(false);
 
   const openInfoWindow = () => {
     setLocationInfo(true);
   };
 
-   const dynamicInfoWindow = (collectionId) => {
-     setCustomerInfo(collectionId === customerInfo ? null : collectionId);
-   };
+  const dynamicInfoWindow = (collectionId) => {
+    setCustomerInfo(collectionId === customerInfo ? null : collectionId);
+  };
 
-  const [data, setData] = useState([]);
-
+  //get customer location and distance
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("/api/location/customers");
-        setErrMsg(false);
-        console.log("getdata:", response.data);
-        setData(
-          response.data.map((customer) => ({
-            lat: customer.Location.coordinates[1],
-            lng: customer.Location.coordinates[0],
-            Name: customer.Name,
-            Address: customer.Address,
-            Number: customer.Numbers,
-            distance: customer.distance,
-          }))
-        );
-      } catch (error) {
-        setErrMsg(true);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -95,12 +77,10 @@ const Googlemap = () => {
 
                 {data?.map((collection) => {
                   return (
-                    <div>
-                      {" "}
+                    <div key={collection.id}>
                       <AdvancedMarker
-                        key={collection.id}
                         position={collection}
-                        onClick={() => setCustomerInfo(collection.id)}
+                        onClick={() => dynamicInfoWindow(collection.id)}
                       >
                         {" "}
                         <Pin
@@ -113,6 +93,7 @@ const Googlemap = () => {
                         <InfoWindow
                           position={collection}
                           onCloseClick={() => setCustomerInfo(null)}
+                          // ref={closeinfowindowRef}
                         >
                           <p>{collection.Name}</p>
                           <p>{collection.Address}</p>
