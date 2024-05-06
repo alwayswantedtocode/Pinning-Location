@@ -22,23 +22,14 @@ const Googlemap = () => {
   };
   const { data, errMsg, fetchData } = useAddGetCustomer();
   const {
-    handleIcons,
     customerInfo,
     setCustomerInfo,
-    closeinfowindowRef,
+
     handleActiveWindowsInfo,
   } = useHandleMapInfo();
   const [locationInfo, setLocationInfo] = useState(false);
   // const [customerInfo, setCustomerInfo] = useState(false);
   const [apiLoaded, setApiLoaded] = useState(false);
-
-
-//  const handleOnLoad = (map) => {
-//    const bounds = new google.maps.LatLngBounds();
-//    data.forEach(({ position }) => bounds.extend(position));
-//    map.fitBounds(bounds);
-//  };
-
 
   const openInfoWindow = () => {
     setLocationInfo(true);
@@ -48,16 +39,6 @@ const Googlemap = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-
-  // const handleOnLoad = (map) => {
-  //   if (window.google) {
-  //       const bounds = new google.maps.LatLngBounds();
-  //       data.forEach(({ position }) => bounds.extend(position));
-  //       map.fitBounds(bounds);
-  //    }
-    
-  //  };
 
   return (
     <APIProvider
@@ -94,13 +75,13 @@ const Googlemap = () => {
                   </InfoWindow>
                 )}
 
-                {data?.map((collection,index) => {
+                {data?.map((collection, index) => {
                   return (
                     <div key={index}>
                       <AdvancedMarker
                         key={collection.id}
                         position={collection}
-                        onClick={()=>handleActiveWindowsInfo(collection.id)}
+                        onClick={() => handleActiveWindowsInfo(collection.id)}
                       >
                         {" "}
                         <Pin
