@@ -10,7 +10,7 @@ const InputForm = ({ type, placeholder, className, name, value, onChange, ...pro
       value={value}
       onChange={(e) => onChange(e.target.value)}
       {...props}
-      className={`border-2 border-[#ce5aff] rounded-[4px]  w-[16.4rem] h-[2.2875rem] bg-[#ffff] p-[0.4rem] focus:outline-none  ${className} `}
+      className={`border-2 border-[#FAC03E] rounded-[4px]  w-[16.4rem] h-[2.2875rem] bg-[#ffff] p-[0.4rem] focus:outline-none  ${className} `}
     />
   );
 };

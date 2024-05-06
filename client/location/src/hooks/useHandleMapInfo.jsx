@@ -1,36 +1,26 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
+import useAddGetCustomer from "./useAddGetCustomer";
 
 const useHandleMapInfo = () => {
-  const closeinfowindowRef = useRef();
-  const [customerInfo, setCustomerInfo] = useState([]);
 
-  const handleIcons = (index) => {
-    const updatedOnClickIcon = customerInfo.map((clicked, i) =>
-      i === index ? !clicked : false
-    );
-    setCustomerInfo(updatedOnClickIcon);
-  };
+  const { data } = useAddGetCustomer();
+  const [customerInfo, setCustomerInfo] = useState(null);
 
-  const closeMapInfo = (e) => {
-    if (!closeinfowindowRef.current.contains(e.target)) {
-      setCustomerInfo(customerInfo.map(() => false)); // Close all InfoWindows
+
+  const handleActiveWindowsInfo = (pinInfo) => {
+    if (pinInfo === customerInfo) {
+      return;
     }
+    setCustomerInfo(pinInfo);
   };
 
-//   useEffect(() => {
-//     document.addEventListener("mousedown", closeMapInfo);
-//     return () => {
-//       document.removeEventListener("mousedown", closeMapInfo);
-//     };
-//   }, []);
-    
-    return {
-      customerInfo,
-      setCustomerInfo,
-      handleIcons,
-      closeinfowindowRef,
-      closeMapInfo,
-    };
+
+
+  return {
+    customerInfo,
+    setCustomerInfo,
+    handleActiveWindowsInfo,
+  };
 };
 
 export default useHandleMapInfo;

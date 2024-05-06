@@ -21,19 +21,27 @@ const Googlemap = () => {
     lng: 3.37149,
   };
   const { data, errMsg, fetchData } = useAddGetCustomer();
-  const {  handleIcons, closeinfowindowRef } =
-    useHandleMapInfo();
+  const {
+    handleIcons,
+    customerInfo,
+    setCustomerInfo,
+    closeinfowindowRef,
+    handleActiveWindowsInfo,
+  } = useHandleMapInfo();
   const [locationInfo, setLocationInfo] = useState(false);
-  const [customerInfo, setCustomerInfo] = useState(null);
+  // const [customerInfo, setCustomerInfo] = useState(false);
   const [apiLoaded, setApiLoaded] = useState(false);
-  // const [errMsg, setErrMsg] = useState(false);
+
+
+//  const handleOnLoad = (map) => {
+//    const bounds = new google.maps.LatLngBounds();
+//    data.forEach(({ position }) => bounds.extend(position));
+//    map.fitBounds(bounds);
+//  };
+
 
   const openInfoWindow = () => {
     setLocationInfo(true);
-  };
-
-  const dynamicInfoWindow = (collectionId) => {
-    setCustomerInfo(collectionId === customerInfo ? null : collectionId);
   };
 
   //get customer location and distance
@@ -41,10 +49,21 @@ const Googlemap = () => {
     fetchData();
   }, []);
 
+
+  // const handleOnLoad = (map) => {
+  //   if (window.google) {
+  //       const bounds = new google.maps.LatLngBounds();
+  //       data.forEach(({ position }) => bounds.extend(position));
+  //       map.fitBounds(bounds);
+  //    }
+    
+  //  };
+
   return (
     <APIProvider
       apiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY}
       onLoad={() => setApiLoaded(true)}
+      onCloseClick={() => setCustomerInfo(null)}
     >
       <article className="flex-auto w-[75%]">
         {!errMsg ? (
@@ -75,12 +94,13 @@ const Googlemap = () => {
                   </InfoWindow>
                 )}
 
-                {data?.map((collection) => {
+                {data?.map((collection,index) => {
                   return (
-                    <div key={collection.id}>
+                    <div key={index}>
                       <AdvancedMarker
+                        key={collection.id}
                         position={collection}
-                        onClick={() => dynamicInfoWindow(collection.id)}
+                        onClick={()=>handleActiveWindowsInfo(collection.id)}
                       >
                         {" "}
                         <Pin
@@ -89,7 +109,7 @@ const Googlemap = () => {
                           glyphColor={"red"}
                         />
                       </AdvancedMarker>
-                      {customerInfo === collection.id && (
+                      {customerInfo === collection.id ? (
                         <InfoWindow
                           position={collection}
                           onCloseClick={() => setCustomerInfo(null)}
@@ -103,7 +123,7 @@ const Googlemap = () => {
                             Lara Pastry
                           </p>
                         </InfoWindow>
-                      )}
+                      ) : null}
                     </div>
                   );
                 })}

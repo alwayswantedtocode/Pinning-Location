@@ -10,7 +10,7 @@ const RadioField = ({ type, name, checked, onChange, ...props }) => {
       checked={checked}
       onChange={(e) => onChange(e.target.checked)}
       {...props}
-      className="border-[1px] border-[#ce5aff] rounded-[4px] border-none w-[1.4rem] h-[2.2875rem] bg-[#f2f2f2] p-[0.4rem] "
+      className="border-[1px] border-[#FAC03E] rounded-[4px] border-none w-[1.4rem] h-[2.2875rem] bg-[#f2f2f2] p-[0.4rem] "
     />
   );
 };
