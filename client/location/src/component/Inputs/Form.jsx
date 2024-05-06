@@ -15,7 +15,7 @@ const Form = () => {
   };
 
   return (
-    <div className="flex-auto w-[30%]  p-[2rem] flex items-center justify-center z-10 shadow-xl bg-[#9593B9]">
+    <div className=" w-[100%] lg:flex-auto lg:w-[35%]  p-[2rem] flex items-center justify-center z-10 shadow-xl bg-[#9593B9]">
       {" "}
       <div className="w-[100%] bg-[#ffff]  rounded-[1rem] shadow-xl m-[3rem] p-[2rem] flex items-center justify-center border-[2px] ">
         <form className="flex flex-col gap-[10px] " onSubmit={handleSubmit}>
