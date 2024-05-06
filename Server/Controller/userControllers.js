@@ -71,6 +71,7 @@ const SearchCustomerLocation = async (req, res) => {
       const distance =
         geolib.getDistance(predefinedLocation, customerLocation) / 1000;
       return { ...customer.JSON(), distance };
+      
     });
     res.status(200).json(customersWithDistance);
 

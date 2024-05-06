@@ -40,7 +40,6 @@ const useAddGetCustomer = () => {
     try {
       const response = await axios.get("/api/location/customers");
       setErrMsg(false);
-      console.log("getdata:", response.data);
       setData(
         response.data.map((customer) => ({
           lat: customer.Location.coordinates[1],
