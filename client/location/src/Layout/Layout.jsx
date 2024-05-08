@@ -25,7 +25,7 @@ const Layout = () => {
 //   }, []);
   return (
     <>
-      <header className="w-[100%]  h-[5rem] flex items-center justify-center z-[99] shadow-xl relative font-negative">
+      <header className="w-[100%]  h-[5rem] flex items-center justify-center z-[99] shadow-xl drop-shadow-custom relative font-negative">
         <Navbar />
 
         <div

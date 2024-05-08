@@ -25,7 +25,7 @@ export const Auth = () => {
   return (
     <section className=" w-[100vw] h-[100vh] flex relative bg-[#BDA2A9]" >
       {alert.show && <Alert />}
-      <div className="flex-auto w-[50%]  relative z-50 bg-[#00000080]">
+      <div className="hidden lg:flex-auto lg:w-[50%] lg:flex  relative z-[99] bg-[#0a0a0a80]">
         <div className="w-[100%] h-[100%]">
           <img
             src={Pastry}
