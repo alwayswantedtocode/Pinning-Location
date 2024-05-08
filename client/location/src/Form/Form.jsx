@@ -1,6 +1,6 @@
 import React from "react";
-import FormField from "./FormField";
-import useAddGetCustomer from "../../hooks/useAddGetCustomer";
+import FormField from "../component/Inputs/FormField";
+import useAddGetCustomer from "../hooks/useAddGetCustomer";
 
 const Form = () => {
   const { inputs, setInputs, notification, setNotification, handleSubmit } =
@@ -15,8 +15,13 @@ const Form = () => {
   };
 
   return (
-    <div className=" w-[100%] lg:flex-auto lg:w-[35%]  p-[2rem] flex items-center justify-center z-10 shadow-xl bg-[#9593B9]">
-      {" "}
+    <div className=" w-[100%] lg:flex-auto lg:w-[35%]  p-[2rem] flex flex-col items-center justify-center z-10 shadow-xl drop-shadow-custom bg-[#BDA2A9]">
+      <div className="text-2xl font-semibold flex items-center text-center p-[1rem] w-max">
+        <h3>
+          Pin Customer's
+          <br/> Location
+        </h3>
+      </div>
       <div className="w-[100%] bg-[#ffff]  rounded-[1rem] shadow-xl m-[3rem] p-[2rem] flex items-center justify-center border-[2px] ">
         <form className="flex flex-col gap-[10px] " onSubmit={handleSubmit}>
           <FormField

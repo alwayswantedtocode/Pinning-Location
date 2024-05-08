@@ -4,6 +4,7 @@ import { InputFieldType } from "../Prop Types/PropTypes";
 const InputForm = ({ type, placeholder, className, name, value, onChange, ...props }) => {
   return (
     <input
+     
       type={type || "text"}
       placeholder={placeholder || ""}
       name={name}

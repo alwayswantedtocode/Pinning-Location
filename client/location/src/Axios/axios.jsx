@@ -5,4 +5,3 @@ export default axios.create({
   // baseURL: "http://localhost:5010",
 });
 
-//  "proxy": "https://share-x-server.onrender.com"

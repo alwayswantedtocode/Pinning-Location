@@ -5,7 +5,7 @@ export const InputFieldType = {
   checked: PropTypes.any,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
-  className:PropTypes.string,
+  className: PropTypes.string,
   type: PropTypes.string,
   name: PropTypes.string,
   id: PropTypes.string,

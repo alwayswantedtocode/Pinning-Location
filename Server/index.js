@@ -5,6 +5,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
 const customerRouters = require("./Router/userRouter");
+const authRouters =require("./Router/authRouters")
 
 const app = express();
 dotenv.config();
@@ -17,6 +18,7 @@ app.use(cors());
 app.use(morgan("common"));
 app.use(helmet());
 
+app.use("/api/usersauth", authRouters);
 app.use("/api/location", customerRouters);
 
 const startServer = async () => {

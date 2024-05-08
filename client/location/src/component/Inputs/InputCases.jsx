@@ -7,6 +7,7 @@ const InputCases = ({ type, props }) => {
     case TypeofInputFields.TEXT:
     case TypeofInputFields.NUMBER:
     case TypeofInputFields.EMAIL:
+    case TypeofInputFields.PASSWORD:
       return <InputField {...{ ...props, type }} />;
     case TypeofInputFields.RADIO:
       return <RadioField {...{ ...props, type }} />;

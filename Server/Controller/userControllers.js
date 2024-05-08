@@ -4,17 +4,16 @@ const axios = require("axios");
 
 // Predefined location (your location)
 const predefinedLocation = {
-  latitude: 6.587240,
-    longitude: 3.371490,
-//   LOCATION_LATITUDE =
-// LOCATION_LONGITUDE =
+  latitude: 6.58724,
+  longitude: 3.37149,
 };
 
 const addCustomer = async (req, res) => {
   try {
     const { Name, Number, Email, Address, Notification } = req.body;
 
-    if (!Name || !Number || !Email) {
+    // Check fields
+    if (!Name || !Number || !Email || !Address) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
@@ -48,7 +47,6 @@ const addCustomer = async (req, res) => {
       },
       Notification,
     });
-
     const saveUser = await newUser.save();
     res.status(200).json(saveUser);
   } catch (error) {
@@ -71,7 +69,6 @@ const SearchCustomerLocation = async (req, res) => {
       const distance =
         geolib.getDistance(predefinedLocation, customerLocation) / 1000;
       return { ...customer.JSON(), distance };
-      
     });
     res.status(200).json(customersWithDistance);
 
@@ -84,22 +81,22 @@ const SearchCustomerLocation = async (req, res) => {
 
 const getCustomerLocation = async (req, res) => {
   try {
-      const Customers = await Customer.find();
-      console.log(Customers);
+    const Customers = await Customer.find();
+
     const customersWithDistance = Customers.map((customer) => {
       const customerLocation = {
         latitude: customer.Location.coordinates[1],
         longitude: customer.Location.coordinates[0],
       };
-    //   console.log(customerLocation);
+      //   console.log(customerLocation);
       const distance =
         geolib.getDistance(predefinedLocation, customerLocation) / 1000;
-      console.log(distance);
-        const customerData = customer.toObject();
-        // console.log(customerData);
+
+      const customerData = customer.toObject();
+      // console.log(customerData);
 
       return {
-        id:customerData._id,
+        id: customerData._id,
         Name: customerData.Name,
         Number: customerData.Number,
         Email: customerData.Email,
@@ -108,7 +105,7 @@ const getCustomerLocation = async (req, res) => {
         distance, // Include the calculated distance
       };
     });
-      console.log(customersWithDistance);
+
     res.status(200).json(customersWithDistance);
     // res.status(200).json(user);
   } catch (error) {

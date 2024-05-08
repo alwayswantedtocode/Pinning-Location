@@ -10,7 +10,14 @@ module.exports = {
         mono: ["Chivo Mono", "monospace"],
         negative: ["Signika Negative", " sans - serif"],
       },
+      dropShadow: {
+       
+        custom: [
+         " 3px 3px 7px 4px rgba(0,0,0,0.7)"
+        ],
+      },
     },
   },
   plugins: [],
 };
+

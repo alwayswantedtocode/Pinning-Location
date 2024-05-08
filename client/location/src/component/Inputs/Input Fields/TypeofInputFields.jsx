@@ -1,7 +1,8 @@
  export default {
    TEXT: "text",
    NUMBER: "number",
-   EMAIL: "email",
+  EMAIL: "email",
+   PASSWORD:"password",
    RADIO: "checkbox",
  };
 

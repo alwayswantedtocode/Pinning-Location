@@ -4,10 +4,12 @@ import FormField from "../Inputs/FormField";
 import MobileNav from "./mobilenav";
 import { FiSearch, FiMenu, FiX } from "react-icons/fi";
 import useSearch from "../../hooks/useSearch";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const { handleChange, input } = useSearch();
   const [revealMenu, setRevealMenu] = useState(false);
+  const { currentUser } = useSelector((state) => state.auth);
 
   return (
     <>
@@ -32,7 +34,7 @@ const Navbar = () => {
             const { id, nav } = navigate;
             return (
               <div
-                className=" h-[100%] flex items-center font-bold text-2xl hover:bg-[#9593B9] cursor-pointer"
+                className=" h-[100%] flex items-center font-bold text-2xl hover:bg-[#BDA2A9] cursor-pointer"
                 key={id}
               >
                 <span className=" p-3">{nav}</span>
@@ -41,19 +43,21 @@ const Navbar = () => {
           })}
         </div>
         <div className="hidden lg:flex w-[30%]">
-          <div className="w-max h-max font-semibold text-lg uppercase flex items-center justify-center rounded-[4px] border-2 border-[#FAC03E]">
-            <div className="flex items-align justify-center p-[0.2rem]">
-              <FiSearch />
+          {currentUser && (
+            <div className="w-max h-max font-semibold text-lg  flex items-center justify-center rounded-[4px] border-2 border-[#FAC03E]">
+              <div className="flex items-align justify-center p-[0.2rem]">
+                <FiSearch />
+              </div>
+              <FormField
+                type="text"
+                placeholder="search..."
+                name="search"
+                value={input.search}
+                onChange={(e) => handleChange("search", e)}
+                className="border-none focus:outline-none"
+              />
             </div>
-            <FormField
-              type="text"
-              placeholder="search..."
-              name="search"
-              value={input.search}
-              onChange={(e) => handleChange("search", e)}
-              className="border-none focus:outline-none"
-            />
-          </div>
+          )}
         </div>
         <aside
           className={`fixed top-[5rem] right-0 w-full h-full z-[100] grid place-items-center transition-all duration-500 ease-in-out transform scale-100 bg-black bg-opacity-30 lg:hidden ${

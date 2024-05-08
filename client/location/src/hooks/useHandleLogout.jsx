@@ -1,0 +1,55 @@
+import { useState, useEffect, useCallback } from "react";
+import axios from "../Axios/axios";
+import { useSelector, useDispatch } from "react-redux";
+import { setLogout } from "../redux/authSlice";
+import { useNavigate } from "react-router-dom";
+
+const useHandleLogout = () => {
+  const navigate = useNavigate();
+  const { currentUser } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  //   const dropDownRef = useRef();
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  // Handling dropDown
+  const handleDropDown = () => {
+    const onClickIcon = showDropdown;
+    if (onClickIcon) {
+      const iconElement = document.getElementById("user-icon");
+      const iconRect = iconElement.getBoundingClientRect();
+
+      const dropDownElement = document.getElementById("drop-down");
+      const dropDownRect = dropDownElement.getBoundingClientRect();
+
+      const center = (iconRect.right + iconRect.left) / 2 - dropDownRect / 2;
+      const bottom = iconRect.bottom - dropDownRect.height;
+
+      dropDownElement.style.left = `${center}px`;
+      dropDownElement.style.bottom = `${bottom}px`;
+    }
+    setShowDropdown(onClickIcon);
+    setShowDropdown(!showDropdown);
+  };
+
+
+
+  //LogOut
+
+    const LogOut = async () => {
+      console.log("enter")
+    try {
+      const response = await axios.post("/api/usersauth/logout");
+      console.log(response.data);
+      dispatch(setLogout());
+
+      if (!currentUser) {
+        navigate("/Login");
+      }
+    } catch (error) {}
+  };
+
+  return { showDropdown, setShowDropdown, handleDropDown, LogOut };
+};
+
+export default useHandleLogout;
