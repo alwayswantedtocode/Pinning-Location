@@ -29,7 +29,7 @@ const useHandleLogout = () => {
       dropDownElement.style.left = `${center}px`;
       dropDownElement.style.bottom = `${bottom}px`;
     }
-    // setShowDropdown(onClickIcon);
+    setShowDropdown(onClickIcon);
     setShowDropdown(!showDropdown);
   };
 
@@ -41,7 +41,6 @@ const useHandleLogout = () => {
       const response = await axios.post("/api/usersauth/logout");
       console.log(response.data);
       dispatch(setLogout());
-
       if (!currentUser) {
         navigate("/Login");
       }

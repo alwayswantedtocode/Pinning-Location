@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import UserIcon from "../../Assets/user-circle-svgrepo-com.svg";
 import useHandleLogout from "../../hooks/useHandleLogout";
 
 export const Logout = () => {
   const { currentUser } = useSelector((state) => state.auth);
-  const { LogOut,  } = useHandleLogout();
+  const { LogOut } = useHandleLogout();
+  const dropDownRef = useRef();
+  const { showDropdown, setShowDropdown } = useHandleLogout();
 
+  const handleCloseDropDown = (e) => {
+    if (!dropDownRef.current.contains(e.target)) {
+      setShowDropdown(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleCloseDropDown);
+    return () => {
+      document.removeEventListener("mousedown", handleCloseDropDown);
+    };
+  }, []);
 
   return (
-    <article className="w-[100%] h-max flex flex-col">
+    <article className="w-[100%] h-max flex flex-col" ref={dropDownRef}>
       {currentUser ? (
         <div className="w-[100%] h-max flex flex-col items-center p-[1rem] gap-[20px]">
           <div className="w-[100%] h-max flex items-center gap-[20px] py-[1rem] px-[0.5rem] hover:bg-[#BDA2A9] rounded-[0.5rem] shadow-2xl drop-shadow-custom ">
@@ -27,7 +41,7 @@ export const Logout = () => {
 
           <span
             className="w-[100%] rounded-[0.5rem] flex items-center py-[1rem] px-[0.5rem] text-xl font-semibold capitalize hover:bg-[#BDA2A9] cursor-pointer"
-            onClick={()=>LogOut()}
+            onClick={() => LogOut()}
           >
             Logout
           </span>

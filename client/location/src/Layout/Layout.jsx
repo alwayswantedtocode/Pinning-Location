@@ -10,24 +10,19 @@ const Layout = () => {
   const { showDropdown, handleDropDown, setShowDropdown } =
     useHandleLogout(dropDownRef);
 
-  const handleCloseDropDown = useCallback(
-    (e) => {
-      if (!dropDownRef.current.contains(e.target)) {
-        setShowDropdown(!showDropdown);
-      }
-    },
-    [dropDownRef, showDropdown,setShowDropdown]
-  );
+//   const handleCloseDropDown = (e) => {
+//     e.stopPropagation();
+//     if (!dropDownRef.current.contains(e.target)) {
+//       setShowDropdown(false);
+//     }
+//   };
 
-
-
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleCloseDropDown);
-    return () => {
-      document.removeEventListener("mousedown", handleCloseDropDown);
-    };
-  }, []);
+//   useEffect(() => {
+//     document.addEventListener("mousedown", handleCloseDropDown);
+//     return () => {
+//       document.removeEventListener("mousedown", handleCloseDropDown);
+//     };
+//   }, []);
   return (
     <>
       <header className="w-[100%]  h-[5rem] flex items-center justify-center z-[99] shadow-xl relative font-negative">
