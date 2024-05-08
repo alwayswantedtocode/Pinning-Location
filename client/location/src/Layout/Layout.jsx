@@ -11,38 +11,43 @@ const Layout = () => {
     useHandleLogout(dropDownRef);
 
   const handleCloseDropDown = useCallback(
-    (event) => {
-      if (!dropDownRef.current.contains(event.target)) {
-        setShowDropdown(showDropdown);
+    (e) => {
+      if (!dropDownRef.current.contains(e.target)) {
+        setShowDropdown(!showDropdown);
       }
     },
-    [dropDownRef,showDropdown, setShowDropdown]
+    [dropDownRef, showDropdown,setShowDropdown]
   );
+
+
+
 
   useEffect(() => {
     document.addEventListener("mousedown", handleCloseDropDown);
     return () => {
       document.removeEventListener("mousedown", handleCloseDropDown);
     };
-  }, [handleCloseDropDown]);
+  }, []);
   return (
     <>
       <header className="w-[100%]  h-[5rem] flex items-center justify-center z-[99] shadow-xl relative font-negative">
         <Navbar />
+
         <div
           ref={dropDownRef}
           id="user-icon"
           className="flex gap-[10px] items-center border-2 h-[100%] text-xl px-[1rem] font-semibold bg-[#BDA2A9] cursor-pointer"
-          onClick={handleDropDown}
+          onClick={() => handleDropDown()}
         >
           <FiUser />
           <span className="flex items-center justify-center p-[0.2rem]">
             {showDropdown ? <FiChevronDown /> : <FiChevronUp />}
           </span>
         </div>
+
         <aside
           id="drop-down"
-          className={`w-[18rem] h-max absolute right-[1%] top-[100%] rounded-[0.5rem] shadow-2xl drop-shadow-custom z-[999] bg-slate-100 ${
+          className={`w-[18rem] h-max absolute right-[1%] top-[100%] bottom-0 rounded-[0.5rem] shadow-2xl drop-shadow-custom z-[999] bg-slate-100 ${
             showDropdown ? "flex" : "hidden"
           }`}
         >

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import FormField from "../Inputs/FormField";
 import useAuth from "../../hooks/useAuth";
 import {BiInfoCircle} from "react-icons/bi"
@@ -11,9 +11,7 @@ const Register = () => {
     validRegEmail,
     validRegPassword,
     onRegisterSubmit,
-    focusReg,
-    setFocusReg,
-    handleFocus,
+
   } = useAuth();
 
   return (

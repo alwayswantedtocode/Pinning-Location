@@ -15,12 +15,13 @@ const useHandleLogout = () => {
   // Handling dropDown
   const handleDropDown = () => {
     const onClickIcon = showDropdown;
+    setShowDropdown(onClickIcon);
     if (onClickIcon) {
       const iconElement = document.getElementById("user-icon");
-      const iconRect = iconElement.getBoundingClientRect();
-
       const dropDownElement = document.getElementById("drop-down");
-      const dropDownRect = dropDownElement.getBoundingClientRect();
+
+      const iconRect = iconElement.getBoundingClientRect("user-icon");
+      const dropDownRect = dropDownElement.getBoundingClientRect("drop-down");
 
       const center = (iconRect.right + iconRect.left) / 2 - dropDownRect / 2;
       const bottom = iconRect.bottom - dropDownRect.height;
@@ -28,16 +29,14 @@ const useHandleLogout = () => {
       dropDownElement.style.left = `${center}px`;
       dropDownElement.style.bottom = `${bottom}px`;
     }
-    setShowDropdown(onClickIcon);
+    // setShowDropdown(onClickIcon);
     setShowDropdown(!showDropdown);
   };
 
-
-
   //LogOut
 
-    const LogOut = async () => {
-      console.log("enter")
+  const LogOut = async () => {
+    console.log("enter");
     try {
       const response = await axios.post("/api/usersauth/logout");
       console.log(response.data);

@@ -5,8 +5,11 @@ import useHandleAlert from "../../hooks/useHandleAlert";
 import Alert from "../../component/Custom Alert/Alert";
 import Pastry from "../../Assets/Pastry.jpg";
 
+
 export const Auth = () => {
   const { alert, setAlert, showAlert } = useHandleAlert();
+
+
 
   const data = [
     { id: 1, AuthComponent: <Login /> },
@@ -20,7 +23,7 @@ export const Auth = () => {
     setActiveTab(index);
   };
   return (
-    <section className=" w-[100vw] h-[100vh] flex relative bg-[#BDA2A9]">
+    <section className=" w-[100vw] h-[100vh] flex relative bg-[#BDA2A9]" >
       {alert.show && <Alert />}
       <div className="flex-auto w-[50%]  relative z-50 bg-[#00000080]">
         <div className="w-[100%] h-[100%]">

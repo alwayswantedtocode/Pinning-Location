@@ -3,7 +3,7 @@ import useHandleAlert from "./useHandleAlert";
 import axios from "../Axios/axios";
 import { loginStart, loginSuccess, loginFailure } from "../redux/authSlice";
 import { useDispatch } from "react-redux";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const USER_REGX = /^[a-zA-Z][A-Za-z0-9-_]{3,23}$/;
 const PWD_REGX =
@@ -12,7 +12,7 @@ const PWD_REGX =
 const EMAIL_REGX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const useAuth = (Username, Email, Password) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { alert, setAlert, showAlert } = useHandleAlert();
   const [inputs, setInputs] = useState({});
@@ -82,7 +82,7 @@ const useAuth = (Username, Email, Password) => {
           Username: inputs.Username,
           Email: inputs.Email,
           Password: inputs.Password,
-        },
+        }
         // {
         //   headers: { "Content-Type": "application/json" },
         //   withCredentials: true,
@@ -94,39 +94,32 @@ const useAuth = (Username, Email, Password) => {
         Email: "",
         Password: "",
       });
+      dispatch(loginStart());
+      showAlert(true, "success", "You have successfully created an account");
       navigate("/");
     } catch (error) {
       if (error?.response) {
-        dispatch(
-          loginFailure(
-            showAlert(true, "danger", "Something went wrong with the Server")
-          )
-        );
+        showAlert(true, "danger", "Something went wrong with the Server");
       } else if (error.response?.status === 400) {
-        dispatch(
-          loginFailure(showAlert(true, "danger", "Invalid email domain format"))
-        );
+        showAlert(true, "danger", "Invalid email domain format");
       } else if (error.response?.status === 409) {
-        dispatch(
-          loginFailure(
-            showAlert(true, "danger", "Username or Email already exists")
-          )
-        );
+        showAlert(true, "danger", "Username or Email already exists");
       } else {
-        dispatch(
-          loginFailure(showAlert(true, "danger", "Your Registration failed"))
-        );
+        showAlert(true, "danger", "Your Registration failed");
       }
     }
   };
   const onLoginSubmit = async (e) => {
     e.preventDefault();
-    const v1 = USER_REGX.test(login.Username);
-    const v2 = EMAIL_REGX.test(login.Email);
+
+    const v1 = EMAIL_REGX.test(login.Email);
+    const v2 = PWD_REGX.test(login.Password);
     if (!v1 || !v2) {
       showAlert(true, "danger", "Invalid input");
     }
     try {
+      const logins = { Email: login.Email, Password: login.Password };
+      console.log(logins);
       const response = await axios.post(
         "/api/usersauth/signin",
         { Email: login.Email, Password: login.Password }
@@ -135,6 +128,10 @@ const useAuth = (Username, Email, Password) => {
         //   withCredentials: true,
         // }
       );
+
+      console.log(response.data);
+      dispatch(loginStart());
+      showAlert(true, "success", "You have successfully created an account");
       dispatch(loginSuccess(response.data));
       setLogin({
         Email: "",
@@ -143,21 +140,13 @@ const useAuth = (Username, Email, Password) => {
       navigate("/");
     } catch (error) {
       if (error?.response) {
-        dispatch(
-          loginFailure(
-            showAlert(true, "danger", "Something went wrong with the Server")
-          )
-        );
+        showAlert(true, "danger", "Something went wrong with the Server");
       } else if (error.response?.status === 404) {
-        dispatch(
-          loginFailure(showAlert(true, "danger", "This user does not exist"))
-        );
+        showAlert(true, "danger", "This user does not exist");
       } else if (error.response?.status === 400) {
-        dispatch(
-          loginFailure(showAlert(true, "danger", "Wrong username or password"))
-        );
+        showAlert(true, "danger", "Wrong username or password");
       } else {
-        dispatch(loginFailure(showAlert(true, "danger", "Login failed")));
+        showAlert(true, "danger", "Login failed");
       }
     }
   };

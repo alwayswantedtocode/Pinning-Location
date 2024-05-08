@@ -5,7 +5,9 @@ import useHandleLogout from "../../hooks/useHandleLogout";
 
 export const Logout = () => {
   const { currentUser } = useSelector((state) => state.auth);
-  const { LogOut } = useHandleLogout();
+  const { LogOut,  } = useHandleLogout();
+
+
   return (
     <article className="w-[100%] h-max flex flex-col">
       {currentUser ? (
@@ -25,7 +27,7 @@ export const Logout = () => {
 
           <span
             className="w-[100%] rounded-[0.5rem] flex items-center py-[1rem] px-[0.5rem] text-xl font-semibold capitalize hover:bg-[#BDA2A9] cursor-pointer"
-            onClick={LogOut}
+            onClick={()=>LogOut()}
           >
             Logout
           </span>
