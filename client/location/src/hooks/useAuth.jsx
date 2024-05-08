@@ -118,8 +118,6 @@ const useAuth = (Username, Email, Password) => {
       showAlert(true, "danger", "Invalid input");
     }
     try {
-      const logins = { Email: login.Email, Password: login.Password };
-      console.log(logins);
       const response = await axios.post(
         "/api/usersauth/signin",
         { Email: login.Email, Password: login.Password }
