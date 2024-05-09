@@ -16,6 +16,7 @@ module.exports = {
          " 3px 3px 7px 4px rgba(0,0,0,0.7)"
         ],
       },
+    
     },
   },
   plugins: [],

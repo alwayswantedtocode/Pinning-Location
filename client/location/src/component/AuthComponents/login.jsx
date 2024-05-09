@@ -1,6 +1,7 @@
 import React from "react";
 import FormField from "../Inputs/FormField";
 import useAuth from "../../hooks/useAuth";
+import { useSelector } from "react-redux";
 
 const Login = () => {
   const {
@@ -10,6 +11,7 @@ const Login = () => {
     validLogPassword,
     onLoginSubmit,
   } = useAuth();
+  const { loading } = useSelector((state) => state.auth);
   return (
     <div className=" flex flex-col w-[100%] h-max items-center justify-center p-[3rem] gap-[30px]">
       <div className="flex flex-col items-center">
@@ -58,7 +60,7 @@ const Login = () => {
             className="rounded-[4px] border-none bg-[#efc364] hover:bg-[#FAC03E] w-[6rem] h-[2.4rem] "
             type="submit"
           >
-            Sign In
+            {loading ? "Loading.." : "Sign In"}
           </button>
         </div>
       </form>

@@ -1,4 +1,4 @@
-const Auth = require("../Model/authSchema")
+const Auth = require("../Model/authSchema");
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -9,42 +9,40 @@ dotenv.config();
 const domainPattern = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const register = async (req, res) => {
+  try {
+    const { Username, Email, Password } = req.body;
+    // Extract domain from email address
+    const domain = Email.split("@")[1];
 
-    try {
-        const { Username, Email, Password } = req.body;
-      // Extract domain from email address
-        const domain = Email.split("@")[1];
+    // Check if the email domain matches the regex pattern
+    if (!domainPattern.test(domain)) {
+      return res.status(400).json({ message: "Invalid email domain format" });
+    }
+    // Check if the user already exists
+    const existingUser = await Auth.findOne({
+      //   $or: [{ email: req.body.email }, { username: req.body.username }],
+      Email: req.body.Email,
+    });
+    if (existingUser) {
+      return res
+        .status(409)
+        .json({ message: "Username or Email already exists" });
+    }
+    //generate hashed pasword
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.Password, salt);
 
+    //create new users
+    const newUser = new Auth({
+      Username,
+      Email,
+      Password: hashedPassword,
+    });
 
-      // Check if the email domain matches the regex pattern
-      if (!domainPattern.test(domain)) {
-        return res.status(400).json({ message: "Invalid email domain format" });
-      }
-      // Check if the user already exists
-      const existingUser = await Auth.findOne({
-        //   $or: [{ email: req.body.email }, { username: req.body.username }],
-        Email: req.body.Email,
-      });
-      if (existingUser) {
-        return res
-          .status(409)
-          .json({ message: "Username or Email already exists" });
-      }
-      //generate hashed pasword
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(req.body.Password, salt);
-
-      //create new users
-      const newUser = new Auth({
-        Username,
-        Email,
-        Password: hashedPassword,
-      });
-
-      //save user and respond
-      const user = await newUser.save();
-      res.status(200).json(user);
-    } catch (error) {
+    //save user and respond
+    const user = await newUser.save();
+    res.status(200).json(user);
+  } catch (error) {
     res.status(500).json(error);
   }
 };
@@ -89,7 +87,6 @@ const login = async (req, res) => {
       .json({ ...otherDetails, accessToken, refreshToken });
   } catch (error) {
     res.status(500).json(error);
-
   }
 };
 

@@ -4,25 +4,27 @@ import Navbar from "../component/Navbar/navbar";
 import { FiUser, FiChevronDown, FiChevronUp } from "react-icons/fi";
 import useHandleLogout from "../hooks/useHandleLogout";
 import { Logout } from "../component/Logout/Logout";
+import useHandleAlert from "../hooks/useHandleAlert";
+import Alert from "../component/Custom Alert/Alert";
 
 const Layout = () => {
   const dropDownRef = useRef();
-  const { showDropdown, handleDropDown, setShowDropdown } =
-    useHandleLogout(dropDownRef);
+  const { alert } = useHandleAlert();
+  const { showDropdown, handleDropDown, setShowDropdown } = useHandleLogout();
 
-//   const handleCloseDropDown = (e) => {
-//     e.stopPropagation();
-//     if (!dropDownRef.current.contains(e.target)) {
-//       setShowDropdown(false);
-//     }
-//   };
+  //   const handleCloseDropDown = (e) => {
+  //     e.stopPropagation();
+  //     if (!dropDownRef.current.contains(e.target)) {
+  //       setShowDropdown(false);
+  //     }
+  //   };
 
-//   useEffect(() => {
-//     document.addEventListener("mousedown", handleCloseDropDown);
-//     return () => {
-//       document.removeEventListener("mousedown", handleCloseDropDown);
-//     };
-//   }, []);
+  //   useEffect(() => {
+  //     document.addEventListener("mousedown", handleCloseDropDown);
+  //     return () => {
+  //       document.removeEventListener("mousedown", handleCloseDropDown);
+  //     };
+  //   }, []);
   return (
     <>
       <header className="w-[100%]  h-[5rem] flex items-center justify-center z-[99] shadow-xl drop-shadow-custom relative font-negative">
@@ -49,6 +51,9 @@ const Layout = () => {
           <Logout />
         </aside>
       </header>
+      {alert.show && ( 
+      <Alert status={alert.status} message={alert.message} alert={alert} />
+       )}
       <Outlet />
     </>
   );

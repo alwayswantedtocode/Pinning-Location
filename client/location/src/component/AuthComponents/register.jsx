@@ -1,7 +1,8 @@
 import React from "react";
 import FormField from "../Inputs/FormField";
 import useAuth from "../../hooks/useAuth";
-import {BiInfoCircle} from "react-icons/bi"
+import { BiInfoCircle } from "react-icons/bi";
+import { useSelector } from "react-redux";
 
 const Register = () => {
   const {
@@ -11,8 +12,8 @@ const Register = () => {
     validRegEmail,
     validRegPassword,
     onRegisterSubmit,
-
   } = useAuth();
+  const { loading } = useSelector((state) => state.auth);
 
   return (
     <div className=" flex flex-col w-[100%] h-max items-center justify-center p-[3rem] gap-[30px]">
@@ -83,10 +84,7 @@ const Register = () => {
           style={{ fontSize: 0.8 + "rem", padding: 0.3 + "rem" }}
         >
           <span className="flex flex-col  ">
-            <BiInfoCircle
-              className="text-[1rem]"
-              style={{ color: "3A6EA5" }}
-            />
+            <BiInfoCircle className="text-[1rem]" style={{ color: "3A6EA5" }} />
             Password must have 8 to 24 characters, aleast one Uppercase,
             Lowercase letters, and a special charater.
           </span>
@@ -96,7 +94,7 @@ const Register = () => {
             className="rounded-[4px] border-none bg-[#efc364] hover:bg-[#FAC03E] w-[6rem] h-[2.4rem] "
             type="submit"
           >
-            Sign Up
+            {loading ? "Loading.." : "Sign Up"}
           </button>
         </div>
       </form>
