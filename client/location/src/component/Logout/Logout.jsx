@@ -1,26 +1,16 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import UserIcon from "../../Assets/user-circle-svgrepo-com.svg";
 import useHandleLogout from "../../hooks/useHandleLogout";
+import { useGlobalContext } from "../../Global Context/useContext";
 
 export const Logout = () => {
+  const{dropDownRef}=useGlobalContext()
   const { currentUser } = useSelector((state) => state.auth);
-  const { LogOut } = useHandleLogout();
-  const dropDownRef = useRef();
-  const { showDropdown, setShowDropdown } = useHandleLogout();
+  const { LogOut } =
+    useHandleLogout();
+  
 
-  const handleCloseDropDown = (e) => {
-    if (!dropDownRef.current.contains(e.target)) {
-      setShowDropdown(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleCloseDropDown);
-    return () => {
-      document.removeEventListener("mousedown", handleCloseDropDown);
-    };
-  }, []);
 
   return (
     <article className="w-[100%] h-max flex flex-col" ref={dropDownRef}>

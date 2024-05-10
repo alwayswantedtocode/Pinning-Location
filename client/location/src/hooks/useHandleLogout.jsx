@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import axios from "../Axios/axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout } from "../redux/authSlice";
@@ -9,7 +9,6 @@ const useHandleLogout = () => {
   const { currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  //   const dropDownRef = useRef();
   const [showDropdown, setShowDropdown] = useState(false);
 
   // Handling dropDown
@@ -31,7 +30,11 @@ const useHandleLogout = () => {
     }
     setShowDropdown(onClickIcon);
     setShowDropdown(!showDropdown);
-  };
+    };
+    
+    const closeDropdown = () => {
+        setShowDropdown(false)
+    }
 
   //LogOut
 
@@ -47,7 +50,7 @@ const useHandleLogout = () => {
     } catch (error) {}
   };
 
-  return { showDropdown, setShowDropdown, handleDropDown, LogOut };
+  return { showDropdown, setShowDropdown, handleDropDown,closeDropdown, LogOut };
 };
 
 export default useHandleLogout;
