@@ -10,7 +10,7 @@ import {
 import axios from "../../Axios/axios";
 import useAddGetCustomer from "../../hooks/useAddGetCustomer";
 import useHandleMapInfo from "../../hooks/useHandleMapInfo";
-import { useGlobalContext } from "../../Global Context/useContext";
+// import { useGlobalContext } from "../../Global Context/useContext";
 
 const Googlemap = () => {
   const center = {

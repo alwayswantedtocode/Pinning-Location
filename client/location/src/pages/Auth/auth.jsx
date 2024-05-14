@@ -36,7 +36,7 @@ export const Auth = () => {
             {buttons.map((btns, index) => {
               return (
                 <button
-                  className={`w-[30%] p-[0.3rem] font-semibold text-2xl flex items-center    ${
+                  className={`w-max p-[1rem] font-semibold text-2xl flex items-center    ${
                     activeTab === index ? "text-grey-700" : "text-gray-300"
                   } ${
                     index === 0
@@ -51,7 +51,7 @@ export const Auth = () => {
               );
             })}
           </div>
-          <div className="flex  justify-center border-3 border-yellow-600 relative c">
+          <div className="flex  justify-center border-3 border-yellow-600 relative ">
             {data.map((auth, index) => {
               return (
                 <div
