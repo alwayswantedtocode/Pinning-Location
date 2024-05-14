@@ -71,6 +71,7 @@ const useAddGetCustomer = () => {
       setErrMsg(false);
       setGetData(
         response.data.map((customer) => ({
+          id: customer.id,
           userId: customer.id,
           lat: customer.Location.coordinates[1],
           lng: customer.Location.coordinates[0],

@@ -21,15 +21,11 @@ const Googlemap = () => {
     lat: 6.58724,
     lng: 3.37149,
   };
-  const { closeinfowindowRef } = useGlobalContext();
-  const { data, errMsg, getData, fetchData, retrieveData } =
+  // const { closeinfowindowRef } = useGlobalContext();
+  const { errMsg, getData, fetchData, retrieveData } =
     useAddGetCustomer();
-  const {
-    customerInfo,
-    setCustomerInfo,
-    handleActiveWindowsInfo,
-    handleCloseWindowInfo,
-  } = useHandleMapInfo();
+  const { customerInfo, setCustomerInfo, handleActiveWindowsInfo } =
+    useHandleMapInfo();
 
   const [locationInfo, setLocationInfo] = useState(false);
   // const [customerInfo, setCustomerInfo] = useState(false);
@@ -93,8 +89,9 @@ const Googlemap = () => {
                 )}
 
                 {getData?.map((collection) => {
+                  console.log("collection", collection)
                   return (
-                    <div key={collection.id} ref={closeinfowindowRef}>
+                    <div key={collection.id}>
                       <AdvancedMarker
                         key={collection.id}
                         position={collection}

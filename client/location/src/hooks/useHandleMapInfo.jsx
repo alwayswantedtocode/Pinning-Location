@@ -13,17 +13,17 @@ const useHandleMapInfo = () => {
     setCustomerInfo(pinInfo);
   };
 
-  const handleCloseWindowInfo = (e) => {
-    if (!closeinfowindowRef.current.contains(e.target)) {
-      setCustomerInfo(null);
-    }
-  };
+  // const handleCloseWindowInfo = (e) => {
+  //   if (!closeinfowindowRef.current.contains(e.target)) {
+  //     setCustomerInfo(null);
+  //   }
+  // };
 
   return {
     customerInfo,
     setCustomerInfo,
     handleActiveWindowsInfo,
-    handleCloseWindowInfo,
+ 
   };
 };
 
