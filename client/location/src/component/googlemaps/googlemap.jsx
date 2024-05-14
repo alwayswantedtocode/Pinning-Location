@@ -22,7 +22,8 @@ const Googlemap = () => {
     lng: 3.37149,
   };
   const { closeinfowindowRef } = useGlobalContext();
-  const { data, errMsg, fetchData, retrieveData } = useAddGetCustomer();
+  const { data, errMsg, getData, fetchData, retrieveData } =
+    useAddGetCustomer();
   const {
     customerInfo,
     setCustomerInfo,
@@ -48,7 +49,7 @@ const Googlemap = () => {
     retrieveData();
   }, []);
 
-  //close pin window info
+  // close pin window info
   // useEffect(() => {
   //   document.addEventListener("mousedown", handleCloseWindowInfo);
   //   return () => {
@@ -91,8 +92,7 @@ const Googlemap = () => {
                   </InfoWindow>
                 )}
 
-                {data?.map((collection, index) => {
-                  console.log(collection);
+                {getData?.map((collection) => {
                   return (
                     <div key={collection.id} ref={closeinfowindowRef}>
                       <AdvancedMarker
