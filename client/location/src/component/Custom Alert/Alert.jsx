@@ -3,8 +3,9 @@ import useHandleAlert from "../../hooks/useHandleAlert";
 import { FiX } from "react-icons/fi";
 import "../../index.css";
 
-const Alert = ({ alert, status, message }) => {
-  // const { alert } = useHandleAlert();
+const Alert = ({ status, message }) => {
+  const { alert } = useHandleAlert();
+  //
   const [displayAlert, setDisplayAlert] = useState(alert);
 
   useEffect(() => {
@@ -12,7 +13,7 @@ const Alert = ({ alert, status, message }) => {
     if (alert) {
       timeOutId = setTimeout(() => {
         setDisplayAlert(false);
-      }, [5000]);
+      }, 5000);
     }
     return () => clearTimeout(timeOutId);
   }, [alert]);

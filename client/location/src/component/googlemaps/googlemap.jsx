@@ -10,6 +10,7 @@ import {
 import axios from "../../Axios/axios";
 import useAddGetCustomer from "../../hooks/useAddGetCustomer";
 import useHandleMapInfo from "../../hooks/useHandleMapInfo";
+import { useGlobalContext } from "../../Global Context/useContext";
 
 const Googlemap = () => {
   const center = {
@@ -20,13 +21,15 @@ const Googlemap = () => {
     lat: 6.58724,
     lng: 3.37149,
   };
-  const { data, errMsg, fetchData } = useAddGetCustomer();
+  const { closeinfowindowRef } = useGlobalContext();
+  const { data, errMsg, fetchData, retrieveData } = useAddGetCustomer();
   const {
     customerInfo,
     setCustomerInfo,
-
     handleActiveWindowsInfo,
+    handleCloseWindowInfo,
   } = useHandleMapInfo();
+
   const [locationInfo, setLocationInfo] = useState(false);
   // const [customerInfo, setCustomerInfo] = useState(false);
   const [apiLoaded, setApiLoaded] = useState(false);
@@ -35,16 +38,29 @@ const Googlemap = () => {
     setLocationInfo(true);
   };
 
-  //get customer location and distance
+  //get all customer location and distance
   useEffect(() => {
     fetchData();
   }, []);
+
+  //retrieve user customers location and distance
+  useEffect(() => {
+    retrieveData();
+  }, []);
+
+  //close pin window info
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", handleCloseWindowInfo);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleCloseWindowInfo);
+  //   };
+  // }, []);
 
   return (
     <APIProvider
       apiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY}
       onLoad={() => setApiLoaded(true)}
-      onCloseClick={() => setCustomerInfo(null)}
+      // onCloseClick={() => setCustomerInfo(null)}
     >
       <article className="lg:flex-auto lg:w-[65%] w-[100%]">
         {!errMsg ? (
@@ -70,14 +86,15 @@ const Googlemap = () => {
                     position={predefinedLocation}
                     onCloseClick={() => setLocationInfo(false)}
                   >
-                    <p>Lara Pastry</p>
-                    <p>Sodipo Close, Ojota, Lagos</p>
+                    <p className="font-semibold">Lara Pastry</p>
+                    <p className="font-semibold">Sodipo Close, Ojota, Lagos</p>
                   </InfoWindow>
                 )}
 
                 {data?.map((collection, index) => {
+                  console.log(collection);
                   return (
-                    <div key={index}>
+                    <div key={collection.id} ref={closeinfowindowRef}>
                       <AdvancedMarker
                         key={collection.id}
                         position={collection}
@@ -96,12 +113,12 @@ const Googlemap = () => {
                           onCloseClick={() => setCustomerInfo(null)}
                           // ref={closeinfowindowRef}
                         >
-                          <p>{collection.Name}</p>
-                          <p>{collection.Address}</p>
-                          <p>{collection.Number}</p>
-                          <p>
-                            {collection.Name} is {collection.distance}km way
-                            Lara Pastry
+                          <p className="font-semibold">{collection.Name}</p>
+                          <p className="font-semibold">{collection.Address}</p>
+                          <p className="font-semibold">{collection.Number}</p>
+                          <p className="font-semibold">
+                            {collection.Name} is {collection.distance}km away
+                            from Lara Pastry
                           </p>
                         </InfoWindow>
                       ) : null}

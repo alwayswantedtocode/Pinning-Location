@@ -4,11 +4,13 @@ const GlobalContext = React.createContext();
 
 export const AppProvider = ({ children }) => {
   const dropDownRef = useRef(null);
+   const closeinfowindowRef = useRef(null);
 
   return (
     <GlobalContext.Provider
       value={{
         dropDownRef,
+        closeinfowindowRef,
       }}
     >
       {children}

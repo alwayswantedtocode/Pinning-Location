@@ -12,10 +12,12 @@ const PWD_REGX =
 const EMAIL_REGX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const useAuth = (Username, Email, Password) => {
-  //redux and hooks
+  //redux and custom hooks
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { showAlert } = useHandleAlert();
+  const { setAlert, showAlert } = useHandleAlert();
+
+  //Alert function
 
   //Auth states
   const [inputs, setInputs] = useState({});
@@ -74,12 +76,12 @@ const useAuth = (Username, Email, Password) => {
   // submit Register and Login details
   const onRegisterSubmit = async (e) => {
     e.preventDefault();
-    dispatch(loginStart());
+    setIsloading(true);
     const v1 = USER_REGX.test(inputs.Username);
     const v2 = EMAIL_REGX.test(inputs.Email);
     const v3 = PWD_REGX.test(inputs.Password);
     if (!v1 || !v2 || !v3) {
-      dispatch(loginFailure());
+      setIsloading(false);
       showAlert(true, "danger", "Invalid input");
     }
     try {
@@ -101,16 +103,16 @@ const useAuth = (Username, Email, Password) => {
         Email: "",
         Password: "",
       });
-      dispatch(loginStart());
-      showAlert(true, "success", "You have successfully created an account");
       navigate("/");
+      setIsloading(false);
+      showAlert(true, "success", "You have successfully created an account");
     } catch (error) {
-      dispatch(loginFailure());
-      if (error?.response) {
+      setIsloading(false);
+      if (!error?.response) {
         showAlert(true, "danger", "Something went wrong with the Server");
-      } else if (error?.response?.status === 400) {
+      } else if (error.response?.status === 400) {
         showAlert(true, "danger", "Invalid email domain format");
-      } else if (error?.response?.status === 409) {
+      } else if (error.response?.status === 409) {
         showAlert(true, "danger", "Username or Email already exists");
       } else {
         showAlert(true, "danger", "Your Registration failed");
@@ -119,11 +121,12 @@ const useAuth = (Username, Email, Password) => {
   };
   const onLoginSubmit = async (e) => {
     e.preventDefault();
+    setIsloading(true);
     dispatch(loginStart());
     const v1 = EMAIL_REGX.test(login.Email);
     const v2 = PWD_REGX.test(login.Password);
     if (!v1 || !v2) {
-      dispatch(loginFailure());
+      setIsloading(false);
       showAlert(true, "danger", "Invalid input");
     }
 
@@ -136,16 +139,18 @@ const useAuth = (Username, Email, Password) => {
         //   withCredentials: true,
         // }
       );
-      showAlert(true, "success", "You have successfully created an account");
       dispatch(loginSuccess(response.data));
       setLogin({
         Email: "",
         Passowrd: "",
       });
       navigate("/");
+      setIsloading(false);
+      showAlert(true, "success", "You have successfully created an account");
     } catch (error) {
-      dispatch(loginFailure());
+      setIsloading(false);
       if (!error?.response) {
+        console.log(error.response);
         showAlert(true, "danger", "Something went wrong with the Server");
       } else if (error.response?.status === 404) {
         showAlert(true, "danger", "This user does not exist");
@@ -173,6 +178,7 @@ const useAuth = (Username, Email, Password) => {
     onLoginSubmit,
     handleFocus,
     focusReg,
+    isLoading,
   };
 };
 

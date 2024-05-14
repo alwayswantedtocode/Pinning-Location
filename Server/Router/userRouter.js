@@ -1,8 +1,12 @@
 const customerRouter = require("express").Router();
-const { addCustomer, getCustomerLocation, SearchCustomerLocation } = require("../Controller/userControllers")
+const {
+  addCustomer,
+  getCustomerLocation,
+  deliveryLocation,
+} = require("../Controller/userControllers");
 
 customerRouter.post("/customers", addCustomer);
 customerRouter.get("/customers", getCustomerLocation);
-customerRouter.get("/search/customers", SearchCustomerLocation);
+customerRouter.get("/deliverydestination/:id", deliveryLocation);
 
 module.exports = customerRouter;

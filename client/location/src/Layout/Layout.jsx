@@ -11,16 +11,11 @@ import { useGlobalContext } from "../Global Context/useContext";
 const Layout = () => {
   const{dropDownRef}=useGlobalContext()
   const { alert } = useHandleAlert();
-  const { showDropdown, handleDropDown, setShowDropdown } =
+  const { showDropdown, handleDropDown,handleCloseDropDown } =
     useHandleLogout();
 
-    const handleCloseDropDown = (e) => {
-      e.stopPropagation();
-      if (!dropDownRef.current.contains(e.target)) {
-        setShowDropdown(false);
-      }
-    };
-
+  
+  
     useEffect(() => {
       document.addEventListener("mousedown", handleCloseDropDown);
       return () => {
@@ -53,12 +48,13 @@ const Layout = () => {
           <Logout />
         </aside>
       </header>
-      {alert.show && (
-      <Alert status={alert.status} message={alert.message} alert={alert} />
-       )}
+      {/* {alert.show && ( */}
+      {/* <Alert {...alert} status={alert.status} message={alert.message} alert={alert} /> */}
+       {/* )} */}
       <Outlet />
     </>
   );
 };
 
 export default Layout;
+// status={alert.status} message={alert.message} alert={alert} 

@@ -5,12 +5,9 @@ import useHandleLogout from "../../hooks/useHandleLogout";
 import { useGlobalContext } from "../../Global Context/useContext";
 
 export const Logout = () => {
-  const{dropDownRef}=useGlobalContext()
+  const { dropDownRef } = useGlobalContext();
   const { currentUser } = useSelector((state) => state.auth);
-  const { LogOut } =
-    useHandleLogout();
-  
-
+  const { LogOut } = useHandleLogout();
 
   return (
     <article className="w-[100%] h-max flex flex-col" ref={dropDownRef}>

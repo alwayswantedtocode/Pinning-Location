@@ -12,7 +12,7 @@ export const Auth = () => {
     { id: 1, AuthComponent: <Login /> },
     { id: 2, AuthComponent: <Register /> },
   ];
-  const buttons = [{ name: "LogIn" }, { name: "Register" }];
+  const buttons = [{ name: "Sign In" }, { name: "Register" }];
 
   const [activeTab, setActiveTab] = useState(0);
 
@@ -22,7 +22,7 @@ export const Auth = () => {
   return (
     <>
       <section className=" w-[100vw] h-[100vh] flex relative bg-[#BDA2A9]">
-        <div className="hidden lg:flex-auto lg:w-[50%] lg:flex  relative z-[99] bg-black bg-opacity-30 ">
+        <div className="hidden lg:flex-auto lg:w-[50%] lg:flex  relative z-[9] bg-black bg-opacity-30 ">
           <div className="w-[100%] h-[100%]">
             <img
               src={Pastry}

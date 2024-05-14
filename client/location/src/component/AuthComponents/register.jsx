@@ -2,7 +2,7 @@ import React from "react";
 import FormField from "../Inputs/FormField";
 import useAuth from "../../hooks/useAuth";
 import { BiInfoCircle } from "react-icons/bi";
-import { useSelector } from "react-redux";
+
 
 const Register = () => {
   const {
@@ -12,8 +12,8 @@ const Register = () => {
     validRegEmail,
     validRegPassword,
     onRegisterSubmit,
+    isLoading,
   } = useAuth();
-  const { loading } = useSelector((state) => state.auth);
 
   return (
     <div className=" flex flex-col w-[100%] h-max items-center justify-center p-[3rem] gap-[30px]">
@@ -94,7 +94,7 @@ const Register = () => {
             className="rounded-[4px] border-none bg-[#efc364] hover:bg-[#FAC03E] w-[6rem] h-[2.4rem] "
             type="submit"
           >
-            {loading ? "Loading.." : "Sign Up"}
+            {isLoading ? "Loading..." : "Sign Up"}
           </button>
         </div>
       </form>

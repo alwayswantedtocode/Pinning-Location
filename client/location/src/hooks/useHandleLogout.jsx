@@ -3,8 +3,10 @@ import axios from "../Axios/axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
+import { useGlobalContext } from "../Global Context/useContext";
 
 const useHandleLogout = () => {
+  const { dropDownRef } = useGlobalContext();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -30,11 +32,14 @@ const useHandleLogout = () => {
     }
     setShowDropdown(onClickIcon);
     setShowDropdown(!showDropdown);
-    };
-    
-    const closeDropdown = () => {
-        setShowDropdown(false)
+  };
+
+  const handleCloseDropDown = (e) => {
+    e.stopPropagation();
+    if (!dropDownRef.current.contains(e.target)) {
+      setShowDropdown(false);
     }
+  };
 
   //LogOut
 
@@ -50,7 +55,14 @@ const useHandleLogout = () => {
     } catch (error) {}
   };
 
-  return { showDropdown, setShowDropdown, handleDropDown,closeDropdown, LogOut };
+  return {
+    showDropdown,
+    setShowDropdown,
+    handleDropDown,
+    handleCloseDropDown,
+
+    LogOut,
+  };
 };
 
 export default useHandleLogout;

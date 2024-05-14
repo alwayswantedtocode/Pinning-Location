@@ -10,6 +10,7 @@ const useHandleAlert = () => {
   const showAlert = (show = false, status = "", message = "") => {
     setAlert({ show, status, message });
   };
+  
   return {
     alert,
     setAlert,

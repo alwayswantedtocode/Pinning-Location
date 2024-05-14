@@ -1,4 +1,5 @@
 const Customer = require("../Model/userSchema");
+const Auth = require("../Model/authSchema");
 const geolib = require("geolib");
 const axios = require("axios");
 
@@ -10,7 +11,7 @@ const predefinedLocation = {
 
 const addCustomer = async (req, res) => {
   try {
-    const { Name, Number, Email, Address, Notification } = req.body;
+    const { UserId, Name, Number, Email, Address, Notification } = req.body;
 
     // Check fields
     if (!Name || !Number || !Email || !Address) {
@@ -37,6 +38,7 @@ const addCustomer = async (req, res) => {
     const position = geocodingResponse.data.results[0].geometry.location;
 
     const newUser = new Customer({
+      UserId,
       Name,
       Number,
       Email,
@@ -54,28 +56,39 @@ const addCustomer = async (req, res) => {
   }
 };
 
-const SearchCustomerLocation = async (req, res) => {
-  let { query } = req.query;
-
+const deliveryLocation = async (req, res) => {
   try {
-    const FindCustomer = await Customer.find({
-      $or: [{ Name: { $regex: new RegExp(query, "i") } }],
-    });
+    const user = await Auth.findById(req.params.id);
+    console.log("user", user);
+    const FindCustomer = await Customer.find({ UserId: user._id });
+    console.log("find ", FindCustomer);
     const customersWithDistance = FindCustomer.map((customer) => {
       const customerLocation = {
         latitude: customer.Location.coordinates[1],
         longitude: customer.Location.coordinates[0],
       };
+      // console.log(customersWithDistance);
       const distance =
         geolib.getDistance(predefinedLocation, customerLocation) / 1000;
-      return { ...customer.JSON(), distance };
+      const customerData = customer.toObject();
+      console.log(distance);
+
+      return {
+        id: customerData._id,
+        UserId: customerData.UserId,
+        Name: customerData.Name,
+        Number: customerData.Number,
+        Email: customerData.Email,
+        Address: customerData.Address,
+        Location: customerData.Location,
+        distance, // Include the calculated distance
+      };
     });
     res.status(200).json(customersWithDistance);
 
     // res.status(200).json(user);
   } catch (error) {
     res.status(500).json(error);
-    next(error);
   }
 };
 
@@ -88,15 +101,16 @@ const getCustomerLocation = async (req, res) => {
         latitude: customer.Location.coordinates[1],
         longitude: customer.Location.coordinates[0],
       };
-      //   console.log(customerLocation);
+      // console.log(customerLocation);
       const distance =
         geolib.getDistance(predefinedLocation, customerLocation) / 1000;
 
       const customerData = customer.toObject();
-      // console.log(customerData);
+      console.log(customerData);
 
       return {
         id: customerData._id,
+        UserId: customerData.UserId,
         Name: customerData.Name,
         Number: customerData.Number,
         Email: customerData.Email,
@@ -112,4 +126,4 @@ const getCustomerLocation = async (req, res) => {
     res.status(500).json(error);
   }
 };
-module.exports = { addCustomer, getCustomerLocation, SearchCustomerLocation };
+module.exports = { addCustomer, getCustomerLocation, deliveryLocation };
