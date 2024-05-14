@@ -59,7 +59,7 @@ const Googlemap = () => {
       onLoad={() => setApiLoaded(true)}
       // onCloseClick={() => setCustomerInfo(null)}
     >
-      <article className="lg:flex-auto lg:w-[65%] w-[100%]">
+      <article className="lg:flex-auto lg:w-[65%] w-[100%] h-[100%] ">
         {!errMsg ? (
           <div style={{ height: "100vh", width: "100%" }}>
             {apiLoaded && (

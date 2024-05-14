@@ -15,7 +15,7 @@ const Form = () => {
   };
 
   return (
-    <div className=" w-[100%] lg:flex-auto lg:w-[35%]  p-[2rem] flex flex-col items-center justify-center z-10 shadow-xl drop-shadow-custom bg-[#BDA2A9]">
+    <div className=" w-[100%] lg:flex-auto lg:w-[35%] h-[100%] p-[2rem] flex flex-col items-center justify-center z-10 shadow-xl drop-shadow-custom bg-[#BDA2A9]">
       <div className="text-2xl font-semibold flex items-center text-center p-[1rem] w-max">
         <h3>
           Pin Customer's
