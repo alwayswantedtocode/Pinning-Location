@@ -71,7 +71,7 @@ const deliveryLocation = async (req, res) => {
       const distance =
         geolib.getDistance(predefinedLocation, customerLocation) / 1000;
       const customerData = customer.toObject();
-      console.log(distance);
+      // console.log(distance);
 
       return {
         id: customerData._id,
