@@ -12,7 +12,7 @@ export const Auth = () => {
     { id: 1, AuthComponent: <Login /> },
     { id: 2, AuthComponent: <Register /> },
   ];
-  const buttons = [{ name: "Sign In" }, { name: "Register" }];
+  const buttons = [{ name: "SignIn" }, { name: "Register" }];
 
   const [activeTab, setActiveTab] = useState(0);
 
@@ -36,12 +36,12 @@ export const Auth = () => {
             {buttons.map((btns, index) => {
               return (
                 <button
-                  className={`w-max p-[1rem] font-semibold text-2xl flex items-center  ${
+                  className={`w-max py-[1rem] px-[1.5rem] font-semibold text-2xl flex items-center border ${
                     activeTab === index ? "text-grey-700" : "text-gray-300"
                   } ${
                     index === 0
-                      ? "border-r-2 border-black justify-end"
-                      : "border-l-2  border-black justify-start"
+                      ? "border-r-2 border-black justify-center"
+                      : "border-l-2  border-black justify-center"
                   }`}
                   key={index}
                   onClick={() => handleActiveTab(index)}
