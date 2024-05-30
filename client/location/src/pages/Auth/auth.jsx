@@ -36,7 +36,7 @@ export const Auth = () => {
             {buttons.map((btns, index) => {
               return (
                 <button
-                  className={`w-max p-[1rem] font-semibold text-2xl flex items-center    ${
+                  className={`w-max p-[1rem] font-semibold text-2xl flex items-center  ${
                     activeTab === index ? "text-grey-700" : "text-gray-300"
                   } ${
                     index === 0
