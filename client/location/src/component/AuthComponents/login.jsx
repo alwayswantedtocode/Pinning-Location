@@ -14,7 +14,7 @@ const Login = () => {
   // const { loading } = useSelector((state) => state.auth);
   // const{}
   return (
-    <div className=" flex flex-col w-[100%] h-max items-center justify-center p-[3rem] gap-[30px]">
+    <div className=" flex flex-col w-[100%]  items-center justify-center p-[3rem] gap-[30px]">
       <div className="flex flex-col items-center">
         <h1 className="text-3xl font-bold">Welcome!</h1>
         <p className="">Already have an acount? Sign in here</p>

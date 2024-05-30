@@ -20,9 +20,9 @@ export const Auth = () => {
     setActiveTab(index);
   };
   return (
-    <>
+ 
       <section className=" w-[100vw] h-[100vh] flex relative bg-[#BDA2A9]">
-        <div className="hidden lg:flex-auto lg:w-[50%] lg:flex  relative z-[9] bg-black bg-opacity-30 ">
+        <div className="hidden lg:flex-auto lg:w-[50%]  lg:flex  relative z-[9] bg-black bg-opacity-30 ">
           <div className="w-[100%] h-[100%]">
             <img
               src={Pastry}
@@ -31,12 +31,12 @@ export const Auth = () => {
             />
           </div>
         </div>
-        <div className=" justify-center flex-auto w-[50%] p-[9rem] bg-[#BDA2A9]  relative">
-          <div className="w-[100%] flex  items-center justify-center mb-[1rem] ">
+        <div className=" justify-center flex-auto w-[50%] border bg-[#BDA2A9] relative">
+          <div className="w-[100%] flex  items-center justify-center my-[3rem]">
             {buttons.map((btns, index) => {
               return (
                 <button
-                  className={`w-max py-[1rem] px-[1.5rem] font-semibold text-2xl flex items-center border ${
+                  className={`w-max p-[1rem] font-semibold text-2xl flex items-center ${
                     activeTab === index ? "text-grey-700" : "text-gray-300"
                   } ${
                     index === 0
@@ -67,6 +67,6 @@ export const Auth = () => {
           </div>
         </div>
       </section>
-    </>
+   
   );
 };

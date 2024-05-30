@@ -16,7 +16,7 @@ const Register = () => {
   } = useAuth();
 
   return (
-    <div className=" flex flex-col w-[100%] h-max items-center justify-center p-[3rem] gap-[30px]">
+    <div className=" flex flex-col w-[100%]  items-center justify-center p-[3rem] gap-[30px]">
       <div className="flex flex-col items-center ">
         <h1 className="text-3xl font-bold">Welcome!</h1>
         <p className="">Don't have an acount? create one here</p>
